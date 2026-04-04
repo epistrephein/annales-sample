@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Annales &mdash; Dataset Sample</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Annales</h1>
+    <div class="subtitle">A Comparative Dataset Sample, 2017&ndash;2026</div>
+    <p>
+      This page presents a comparative sample of two news datasets &mdash; <strong>ANSA</strong>
+      (Italian) and <strong>BBC</strong> (English) &mdash; through aggregate metrics,
+      visualizations, and downloadable monthly CSV slices.
+      The data spans from September 2017 to March 2026.
+    </p>
+    <p>
+      The dataset is entirely homegrown, created and maintained since 2017 by
+      <strong>Tommaso Barbato</strong> and archived with care.
+    </p>
+  </header>
+
+  <!-- ── 1. Description ── -->
+  <section>
+    <h2><span class="section-num">01</span> Description</h2>
+    <div class="description">
+      <p>
+        Annales is a <strong>longitudinal bilingual</strong> corpus of news agency feeds, comprising approximately <strong>600,000</strong> structured items harvested from <strong>ANSA</strong> and <strong>BBC News</strong> RSS feeds from 2017 to the present day. Each record includes the item's title, editorial summary, publication date, and original URL. The corpus was built and is maintained solely by the author through an <strong>automated archival system</strong> that polls both feeds at regular intervals, ensuring continuous temporal coverage with no significant gaps. The system is <strong>still active</strong> and the corpus continues to grow.
+      </p>
+      <p>
+        The corpus's principal strengths lie in its <strong>uninterrupted temporal depth</strong>, its parallel coverage of <strong>two major wire services in two languages</strong>, and the consistency of its structure across the entire collection period. News agency RSS feeds are <strong>ephemeral by design</strong>: their contents rotate continuously and are not systematically archived, making this kind of longitudinal record difficult to reconstruct after the fact.
+      </p>
+      <p>
+        This page presents a <strong>stratified sample</strong> of the Annales corpus, illustrating its structure, coverage, and scale across the full collection period for both feeds.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 2. Data Preview ── -->
+  <section>
+    <h2><span class="section-num">02</span> Data Preview</h2>
+    <p>
+      A small sample of actual records from each dataset, showing the structure
+      and content of the archived entries.
+    </p>
+
+    <div class="preview-block ansa">
+      <h3><span class="dot"></span> ANSA &mdash; November 2017</h3>
+      <div class="table-wrapper">
+        <table class="preview-table">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>title</th>
+              <th>summary</th>
+              <th>published</th>
+              <th>url</th>
+              <th>created_at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5308</td>
+              <td>Usa: sparatoria in una scuola, molti studenti feriti. Ucciso il killer</td>
+              <td>E&#39; accaduto in California, sono morte sinora almeno tre persone</td>
+              <td>2017-11-14 18:45:47 UTC</td>
+              <td>http://www.ansa.it/sito/notizie/mondo/2017/11/14/usa-sparatoria-in-una-scuola-molti-studenti-feriti.-ucciso-il-killer_aa45a241-1e22-4db3-b241-4383a45701a9.html</td>
+              <td>2017-11-14 19:00:03 UTC</td>
+            </tr>
+            <tr>
+              <td>5673</td>
+              <td>Franceschini: &#39;L&#39;Art bonus ha superato i i 200 milioni di euro&#39;</td>
+              <td>Dal ministro appello alle aziende: &#39;Usatelo nel Mezzogiorno&#39;</td>
+              <td>2017-11-19 14:38:50 UTC</td>
+              <td>http://www.ansa.it/sito/notizie/economia/2017/11/19/franceschini-lart-bonus-superi-i-200-milioni-di-euro_3b67d1f3-cb77-4576-9325-e40f6b10191c.html</td>
+              <td>2017-11-19 15:00:04 UTC</td>
+            </tr>
+            <tr>
+              <td>5218</td>
+              <td>Manovra: ipotesi bonus nonni, sconti su aiuti a nipoti </td>
+              <td>Detrazioni al 19% su spese mediche, scolastiche e sportive</td>
+              <td>2017-11-13 19:03:24 UTC</td>
+              <td>http://www.ansa.it/sito/notizie/economia/2017/11/13/manovra-ipotesi-bonus-nonni-sconti-su-aiuti-a-nipoti-_f0cc04e4-d836-4360-ad14-73d0ad4c09ae.html</td>
+              <td>2017-11-13 20:00:03 UTC</td>
+            </tr>
+            <tr>
+              <td>6090</td>
+              <td>Biotestamento, Renzi: &#39;Ci sono numeri in Parlamento&#39;</td>
+              <td>Segretario Pd sul treno per tappe in Toscana</td>
+              <td>2017-11-24 17:09:05 UTC</td>
+              <td>http://www.ansa.it/sito/notizie/politica/2017/11/24/renzi-dilemma-di-maio-cav-e-panzana_733adc3a-2e82-4619-a530-36625af34e16.html</td>
+              <td>2017-11-24 18:00:04 UTC</td>
+            </tr>
+            <tr>
+              <td>4794</td>
+              <td>De Rossi, niente Mondiale? Una macchia</td>
+              <td>Azzurro e playoff: &#39;giusto aver paura ma gambe non tremeranno&#39;</td>
+              <td>2017-11-08 13:38:04 UTC</td>
+              <td>http://www.ansa.it/sito/notizie/sport/calcio/2017/11/08/de-rossi-niente-mondiale-una-macchia_4c818e7b-7123-4364-aa09-0e32e3b7aa95.html</td>
+              <td>2017-11-08 14:00:03 UTC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="preview-block bbc">
+      <h3><span class="dot"></span> BBC &mdash; March 2022</h3>
+      <div class="table-wrapper">
+        <table class="preview-table">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>title</th>
+              <th>summary</th>
+              <th>published</th>
+              <th>url</th>
+              <th>created_at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>170550</td>
+              <td>France keep Six Nations Grand Slam dream alive</td>
+              <td>France keep alive their dreams of a first Grand Slam and Six Nations title since 2010 with a tense 13-9 victory over Wales.</td>
+              <td>2022-03-11 21:56:48 UTC</td>
+              <td>https://www.bbc.co.uk/sport/rugby-union/60712709?at_medium=RSS&amp;at_campaign=KARANGA</td>
+              <td>2022-03-11 23:00:07 UTC</td>
+            </tr>
+            <tr>
+              <td>170921</td>
+              <td>Fears Russia will not be able to pay its debts mount</td>
+              <td>The country may be about to default on its debts as Western sanctions over Ukraine bite.</td>
+              <td>2022-03-15 16:31:34 UTC</td>
+              <td>https://www.bbc.co.uk/news/business-60750642?at_medium=RSS&amp;at_campaign=KARANGA</td>
+              <td>2022-03-15 18:00:08 UTC</td>
+            </tr>
+            <tr>
+              <td>170467</td>
+              <td>Russia-Ukraine war: Foreign fighters go to join defence</td>
+              <td>Nearly 20,000 international volunteers have signed up to fight alongside Ukrainian forces, officials say.</td>
+              <td>2022-03-11 00:02:52 UTC</td>
+              <td>https://www.bbc.co.uk/news/world-europe-60696603?at_medium=RSS&amp;at_campaign=KARANGA</td>
+              <td>2022-03-11 03:00:08 UTC</td>
+            </tr>
+            <tr>
+              <td>172162</td>
+              <td>Noel Clarke: Police not investigating sexual harassment claims</td>
+              <td>The Met Police say there is not enough evidence for a criminal investigation.</td>
+              <td>2022-03-28 10:07:41 UTC</td>
+              <td>https://www.bbc.co.uk/news/newsbeat-60900404?at_medium=RSS&amp;at_campaign=KARANGA</td>
+              <td>2022-03-28 12:00:08 UTC</td>
+            </tr>
+            <tr>
+              <td>172348</td>
+              <td>Sophie Ecclestone: The making of England&#39;s world top-ranked bowler</td>
+              <td>From Cheshire cricket to a World Cup semi-final, it&#39;s been quite the journey for England&#39;s Sophie Ecclestone.</td>
+              <td>2022-03-30 05:20:59 UTC</td>
+              <td>https://www.bbc.co.uk/sport/cricket/60904260?at_medium=RSS&amp;at_campaign=KARANGA</td>
+              <td>2022-03-30 06:00:08 UTC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. Metrics ── -->
+  <section>
+    <h2><span class="section-num">03</span> Aggregate Metrics</h2>
+    <p>Total records collected for each source across the full time span.</p>
+
+    <div class="summary-row">
+      <div class="summary-card ansa">
+        <div class="label">ANSA &mdash; total entries</div>
+        <div class="value">259,618</div>
+      </div>
+      <div class="summary-card bbc">
+        <div class="label">BBC &mdash; total entries</div>
+        <div class="value">330,300</div>
+      </div>
+    </div>
+
+    <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem;">Yearly Comparison</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>ANSA</th>
+            <th>BBC</th>
+            <th>Combined</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2017</td>
+            <td class="ansa">8,801</td>
+            <td class="bbc">11,873</td>
+            <td>20,674</td>
+          </tr>
+          <tr>
+            <td>2018</td>
+            <td class="ansa">28,553</td>
+            <td class="bbc">39,336</td>
+            <td>67,889</td>
+          </tr>
+          <tr>
+            <td>2019</td>
+            <td class="ansa">26,627</td>
+            <td class="bbc">38,075</td>
+            <td>64,702</td>
+          </tr>
+          <tr>
+            <td>2020</td>
+            <td class="ansa">28,448</td>
+            <td class="bbc">36,652</td>
+            <td>65,100</td>
+          </tr>
+          <tr>
+            <td>2021</td>
+            <td class="ansa">31,170</td>
+            <td class="bbc">37,632</td>
+            <td>68,802</td>
+          </tr>
+          <tr>
+            <td>2022</td>
+            <td class="ansa">35,056</td>
+            <td class="bbc">35,804</td>
+            <td>70,860</td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td class="ansa">33,255</td>
+            <td class="bbc">38,397</td>
+            <td>71,652</td>
+          </tr>
+          <tr>
+            <td>2024</td>
+            <td class="ansa">28,605</td>
+            <td class="bbc">44,614</td>
+            <td>73,219</td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td class="ansa">30,819</td>
+            <td class="bbc">38,018</td>
+            <td>68,837</td>
+          </tr>
+          <tr>
+            <td>2026</td>
+            <td class="ansa">8,284</td>
+            <td class="bbc">9,899</td>
+            <td>18,183</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 4. Visualizations ── -->
+  <section>
+    <h2><span class="section-num">04</span> Visualizations</h2>
+    <p>Pre-generated charts comparing record volumes across both datasets.</p>
+
+    <figure class="chart-block">
+      <h3>Total Records</h3>
+      <img src="charts/png/totals.png" alt="Bar chart of total records per source" class="lightbox-trigger">
+      <figcaption>Overall count of records in each dataset across the full collection period.</figcaption>
+    </figure>
+
+    <figure class="chart-block">
+      <h3>Yearly Distribution</h3>
+      <img src="charts/png/yearly.png" alt="Yearly record counts for ANSA and BBC" class="lightbox-trigger">
+      <figcaption>Year-by-year record counts, showing collection volume and coverage gaps.</figcaption>
+    </figure>
+
+    <figure class="chart-block">
+      <h3>Monthly Detail, 2017&ndash;2021</h3>
+      <img src="charts/png/monthly-2017-2021.png" alt="Monthly record counts, 2017 to 2021" class="lightbox-trigger">
+      <figcaption>Monthly granularity for the first half of the collection period.</figcaption>
+    </figure>
+
+    <figure class="chart-block">
+      <h3>Monthly Detail, 2022&ndash;2026</h3>
+      <img src="charts/png/monthly-2022-2026.png" alt="Monthly record counts, 2022 to 2026" class="lightbox-trigger">
+      <figcaption>Monthly granularity for the second half of the collection period.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ── 5. Downloadable CSV Slices ── -->
+  <section>
+    <h2><span class="section-num">05</span> Downloadable CSV Slices</h2>
+    <p>
+      Selected monthly extracts from each dataset, provided for inspection and
+      qualitative exploration. Each file contains the records collected during that month.
+    </p>
+
+    <div class="source-group ansa">
+      <h3><span class="dot"></span> ANSA</h3>
+      <ul class="csv-list">
+        <li>
+          <a href="slices/csv/ansa-2017-11.csv" download>
+            <span class="month-label">November 2017</span>
+            <span class="filename">ansa-2017-11.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/ansa-2019-03.csv" download>
+            <span class="month-label">March 2019</span>
+            <span class="filename">ansa-2019-03.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/ansa-2020-06.csv" download>
+            <span class="month-label">June 2020</span>
+            <span class="filename">ansa-2020-06.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/ansa-2023-08.csv" download>
+            <span class="month-label">August 2023</span>
+            <span class="filename">ansa-2023-08.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/ansa-2025-07.csv" download>
+            <span class="month-label">July 2025</span>
+            <span class="filename">ansa-2025-07.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/ansa-2026-02.csv" download>
+            <span class="month-label">February 2026</span>
+            <span class="filename">ansa-2026-02.csv</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="source-group bbc">
+      <h3><span class="dot"></span> BBC</h3>
+      <ul class="csv-list">
+        <li>
+          <a href="slices/csv/bbc-2017-12.csv" download>
+            <span class="month-label">December 2017</span>
+            <span class="filename">bbc-2017-12.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/bbc-2018-09.csv" download>
+            <span class="month-label">September 2018</span>
+            <span class="filename">bbc-2018-09.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/bbc-2021-08.csv" download>
+            <span class="month-label">August 2021</span>
+            <span class="filename">bbc-2021-08.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/bbc-2022-03.csv" download>
+            <span class="month-label">March 2022</span>
+            <span class="filename">bbc-2022-03.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/bbc-2024-04.csv" download>
+            <span class="month-label">April 2024</span>
+            <span class="filename">bbc-2024-04.csv</span>
+          </a>
+        </li>
+        <li>
+          <a href="slices/csv/bbc-2026-01.csv" download>
+            <span class="month-label">January 2026</span>
+            <span class="filename">bbc-2026-01.csv</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Annales dataset sample. The CSV slices above are selected monthly extracts
+      chosen to allow inspection and qualitative exploration of the underlying data.
+      Charts and metrics were generated from the full dataset.
+    </p>
+    <p class="copyright">&copy; 2026 Tommaso Barbato. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+(function () {
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.lightbox-trigger').forEach(function (img) {
+    img.addEventListener('click', function () {
+      lbImg.src = this.src;
+      lbImg.alt = this.alt;
+      lb.classList.add('active');
+    });
+  });
+
+  lb.addEventListener('click', function () {
+    lb.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') lb.classList.remove('active');
+  });
+})();
+</script>
+</body>
+</html>
