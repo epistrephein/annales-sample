@@ -256,7 +256,7 @@ __END__
       chosen to allow inspection and qualitative exploration of the underlying data.
       Charts and metrics were generated from the full dataset.
     </p>
-    <p class="copyright">&copy; <%= Time.now.year %> Tommaso Barbato. All rights reserved.</p>
+    <p class="copyright">Original news content and data belongs to their respective owners. No copyright infringement is intended.<br>&copy; <%= Time.now.year %> Tommaso Barbato. All rights reserved.</p>
   </footer>
 
 </div>
