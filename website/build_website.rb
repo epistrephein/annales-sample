@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Generates index.html from metrics.yml and the CSV slices directory.
-# Run from the project root:  ruby sample/website/build_website.rb
+# Run from the project root:  ruby website/build_website.rb
 
 require "yaml"
 require "erb"
@@ -14,7 +14,8 @@ METRICS   = YAML.load_file(ROOT_DIR.join("metrics/metrics.yml"))
 CSV_DIR   = ROOT_DIR.join("slices/csv")
 OUT_FILE  = ROOT_DIR.join("index.html")
 
-MONTH_NAMES = %w[_ January February March April May June July August September October November December].freeze
+MONTH_NAMES = %w[_ January February March April May June July
+                 August September October November December].freeze
 
 # Format number with commas as thousands separators
 def format_number(number)
@@ -31,6 +32,7 @@ def read_csv_sample(path, count = 5, seed = 21275)
   rows = CSV.read(path, headers: true)
   rng = Random.new(seed)
   sample = rows.each.to_a.sample([count, rows.length].min, random: rng)
+  sample.sort_by! { |row| row["id"].to_i }
   [rows.headers, sample]
 end
 
