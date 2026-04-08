@@ -399,8 +399,8 @@ footer {
   line-height: 1.6;
 }
 
-footer .copyright {
-  margin-top: 1.5rem;
+footer p + p {
+  margin-top: 0.5rem;
 }
 
 /* ── Responsive ── */

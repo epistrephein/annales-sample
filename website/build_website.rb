@@ -8,6 +8,7 @@ require "yaml"
 require "erb"
 require "csv"
 require "cgi"
+require "time"
 
 ROOT_DIR      = Pathname.new(__dir__).parent
 CSV_DIR       = ROOT_DIR.join("slices/csv")
@@ -52,6 +53,8 @@ all_years = (METRICS["ansa"]["yearly"].keys + METRICS["bbc"]["yearly"].keys).uni
 # Read sample rows for the data preview section
 ansa_headers, ansa_sample = read_csv_sample(CSV_DIR.join("ansa-2017-11.csv"))
 bbc_headers, bbc_sample = read_csv_sample(CSV_DIR.join("bbc-2022-03.csv"))
+
+snapshot_date = Time.parse(METRICS["snapshot_timestamp"]).strftime("%d %B %Y")
 
 template = ERB.new(TEMPLATE_FILE.read, trim_mode: "-")
 html = template.result(binding)

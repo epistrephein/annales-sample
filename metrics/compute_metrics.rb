@@ -87,6 +87,9 @@ TABLES.each do |table_name|
   }
 end
 
+# Record the date this snapshot was computed
+result["snapshot_timestamp"] = Time.now.utc.iso8601
+
 # Write the result to a YAML file
 File.write(OUTPUT_FILE, result.to_yaml)
 puts "Written #{File.basename(OUTPUT_FILE)}"

@@ -8,6 +8,7 @@ import numpy as np
 BASE_DIR = Path(__file__).resolve().parent
 INPUT_FILE = BASE_DIR.parent / "metrics" / "metrics.yml"
 OUTPUT_DIR = BASE_DIR / "png"
+TABLES = ["ansa", "bbc"]
 
 COLORS = {
     "primary": "tab:blue",
@@ -22,10 +23,6 @@ def load_data(path):
 
 def ensure_output_dir(path):
     path.mkdir(parents=True, exist_ok=True)
-
-
-def sorted_table_names(data):
-    return sorted(data.keys())
 
 
 def extract_totals(data, tables):
@@ -134,7 +131,7 @@ def plot_grouped_bars(
 
 def main():
     data = load_data(INPUT_FILE)
-    tables = sorted_table_names(data)
+    tables = TABLES
 
     if len(tables) != 2:
         raise ValueError(
