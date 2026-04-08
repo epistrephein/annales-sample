@@ -9,10 +9,14 @@ require "erb"
 require "csv"
 require "cgi"
 
-ROOT_DIR  = Pathname.new(__dir__).parent
-METRICS   = YAML.load_file(ROOT_DIR.join("metrics/metrics.yml"))
-CSV_DIR   = ROOT_DIR.join("slices/csv")
-OUT_FILE  = ROOT_DIR.join("index.html")
+ROOT_DIR      = Pathname.new(__dir__).parent
+CSV_DIR       = ROOT_DIR.join("slices/csv")
+METRICS_FILE  = ROOT_DIR.join("metrics/metrics.yml")
+TEMPLATE_FILE = ROOT_DIR.join("website/template.erb")
+OUTPUT_FILE   = ROOT_DIR.join("index.html")
+
+METRICS  = YAML.load_file(METRICS_FILE)
+RNG_SEED = 21275
 
 MONTH_NAMES = %w[_ January February March April May June July
                  August September October November December].freeze
@@ -28,11 +32,13 @@ def escape_html(string)
 end
 
 # Read random seeded N data rows from a CSV file (returns [headers, rows])
-def read_csv_sample(path, count = 5, seed = 21275)
+def read_csv_sample(path, count = 5, seed = RNG_SEED)
   rows = CSV.read(path, headers: true)
   rng = Random.new(seed)
+
   sample = rows.each.to_a.sample([count, rows.length].min, random: rng)
   sample.sort_by! { |row| row["id"].to_i }
+
   [rows.headers, sample]
 end
 
@@ -47,248 +53,8 @@ all_years = (METRICS["ansa"]["yearly"].keys + METRICS["bbc"]["yearly"].keys).uni
 ansa_headers, ansa_sample = read_csv_sample(CSV_DIR.join("ansa-2017-11.csv"))
 bbc_headers, bbc_sample = read_csv_sample(CSV_DIR.join("bbc-2022-03.csv"))
 
-template = ERB.new(DATA.read, trim_mode: "-")
+template = ERB.new(TEMPLATE_FILE.read, trim_mode: "-")
 html = template.result(binding)
-OUT_FILE.write(html)
 
-puts "Built #{OUT_FILE}"
-
-__END__
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Annales &mdash; Dataset Sample</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-
-  <header>
-    <h1>Annales</h1>
-    <div class="subtitle">A Comparative Dataset Sample, 2017&ndash;2026</div>
-    <p>
-      This page presents a comparative sample of two news datasets &mdash; <strong>ANSA</strong>
-      (Italian) and <strong>BBC</strong> (English) &mdash; through aggregate metrics,
-      visualizations, and downloadable monthly CSV slices.
-      The data spans from September 2017 to March 2026.
-    </p>
-    <p>
-      The dataset is entirely homegrown, created and maintained since 2017 by
-      <strong>Tommaso Barbato</strong> and archived with care.
-    </p>
-  </header>
-
-  <!-- ── 1. Description ── -->
-  <section>
-    <h2><span class="section-num">01</span> Description</h2>
-    <div class="description">
-      <p>
-        Annales is a <strong>longitudinal bilingual</strong> corpus of news agency feeds, comprising approximately <strong>600,000</strong> structured items harvested from <strong>ANSA</strong> and <strong>BBC News</strong> RSS feeds from 2017 to the present day. Each record includes the item's title, editorial summary, publication date, and original URL. The corpus was built and is maintained solely by the author through an <strong>automated archival system</strong> that polls both feeds at regular intervals, ensuring continuous temporal coverage with no significant gaps. The system is <strong>still active</strong> and the corpus continues to grow.
-      </p>
-      <p>
-        The corpus's principal strengths lie in its <strong>uninterrupted temporal depth</strong>, its parallel coverage of <strong>two major wire services in two languages</strong>, and the consistency of its structure across the entire collection period. News agency RSS feeds are <strong>ephemeral by design</strong>: their contents rotate continuously and are not systematically archived, making this kind of longitudinal record difficult to reconstruct after the fact.
-      </p>
-      <p>
-        This page presents a <strong>stratified sample</strong> of the Annales corpus, illustrating its structure, coverage, and scale across the full collection period for both feeds.
-      </p>
-    </div>
-  </section>
-
-  <!-- ── 2. Data Preview ── -->
-  <section>
-    <h2><span class="section-num">02</span> Data Preview</h2>
-    <p>
-      A small sample of actual records from each dataset, showing the structure
-      and content of the archived entries.
-    </p>
-
-    <div class="preview-block ansa">
-      <h3><span class="dot"></span> ANSA &mdash; November 2017</h3>
-      <div class="table-wrapper">
-        <table class="preview-table">
-          <thead>
-            <tr>
-            <%- ansa_headers.each do |col| -%>
-              <th><%= escape_html(col) %></th>
-            <%- end -%>
-            </tr>
-          </thead>
-          <tbody>
-          <%- ansa_sample.each do |row| -%>
-            <tr>
-            <%- ansa_headers.each do |col| -%>
-              <td><%= escape_html(row[col]) %></td>
-            <%- end -%>
-            </tr>
-          <%- end -%>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="preview-block bbc">
-      <h3><span class="dot"></span> BBC &mdash; March 2022</h3>
-      <div class="table-wrapper">
-        <table class="preview-table">
-          <thead>
-            <tr>
-            <%- bbc_headers.each do |col| -%>
-              <th><%= escape_html(col) %></th>
-            <%- end -%>
-            </tr>
-          </thead>
-          <tbody>
-          <%- bbc_sample.each do |row| -%>
-            <tr>
-            <%- bbc_headers.each do |col| -%>
-              <td><%= escape_html(row[col]) %></td>
-            <%- end -%>
-            </tr>
-          <%- end -%>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 3. Metrics ── -->
-  <section>
-    <h2><span class="section-num">03</span> Aggregate Metrics</h2>
-    <p>Total records collected for each source across the full time span.</p>
-
-    <div class="summary-row">
-      <div class="summary-card ansa">
-        <div class="label">ANSA &mdash; total entries</div>
-        <div class="value"><%= format_number(METRICS["ansa"]["total"]) %></div>
-      </div>
-      <div class="summary-card bbc">
-        <div class="label">BBC &mdash; total entries</div>
-        <div class="value"><%= format_number(METRICS["bbc"]["total"]) %></div>
-      </div>
-    </div>
-
-    <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem;">Yearly Comparison</h3>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>ANSA</th>
-            <th>BBC</th>
-            <th>Combined</th>
-          </tr>
-        </thead>
-        <tbody>
-        <%- all_years.each do |year| -%>
-          <%- a = METRICS["ansa"]["yearly"][year] || 0; b = METRICS["bbc"]["yearly"][year] || 0 -%>
-          <tr>
-            <td><%= year %></td>
-            <td class="ansa"><%= format_number(a) %></td>
-            <td class="bbc"><%= format_number(b) %></td>
-            <td><%= format_number(a + b) %></td>
-          </tr>
-        <%- end -%>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ── 4. Visualizations ── -->
-  <section>
-    <h2><span class="section-num">04</span> Visualizations</h2>
-    <p>Pre-generated charts comparing record volumes across both datasets.</p>
-
-    <figure class="chart-block">
-      <h3>Total Records</h3>
-      <img src="charts/png/totals.png" alt="Bar chart of total records per source" class="lightbox-trigger">
-      <figcaption>Overall count of records in each dataset across the full collection period.</figcaption>
-    </figure>
-
-    <figure class="chart-block">
-      <h3>Yearly Distribution</h3>
-      <img src="charts/png/yearly.png" alt="Yearly record counts for ANSA and BBC" class="lightbox-trigger">
-      <figcaption>Year-by-year record counts, showing collection volume and coverage gaps.</figcaption>
-    </figure>
-
-    <figure class="chart-block">
-      <h3>Monthly Detail, 2017&ndash;2021</h3>
-      <img src="charts/png/monthly-2017-2021.png" alt="Monthly record counts, 2017 to 2021" class="lightbox-trigger">
-      <figcaption>Monthly granularity for the first half of the collection period.</figcaption>
-    </figure>
-
-    <figure class="chart-block">
-      <h3>Monthly Detail, 2022&ndash;2026</h3>
-      <img src="charts/png/monthly-2022-2026.png" alt="Monthly record counts, 2022 to 2026" class="lightbox-trigger">
-      <figcaption>Monthly granularity for the second half of the collection period.</figcaption>
-    </figure>
-  </section>
-
-  <!-- ── 5. Downloadable CSV Slices ── -->
-  <section>
-    <h2><span class="section-num">05</span> Downloadable CSV Slices</h2>
-    <p>
-      Selected monthly extracts from each dataset, provided for inspection and
-      qualitative exploration. Each file contains the records collected during that month.
-    </p>
-
-    <%- csv_by_source.sort.each do |source, files| -%>
-    <div class="source-group <%= source %>">
-      <h3><span class="dot"></span> <%= source.upcase %></h3>
-      <ul class="csv-list">
-      <%- files.sort.each do |file| -%>
-        <%- parts = file.sub('.csv','').split('-'); y = parts[1]; m = parts[2].to_i -%>
-        <li>
-          <a href="slices/csv/<%= file %>" download>
-            <span class="month-label"><%= MONTH_NAMES[m] %> <%= y %></span>
-            <span class="filename"><%= file %></span>
-          </a>
-        </li>
-      <%- end -%>
-      </ul>
-    </div>
-    <%- end -%>
-  </section>
-
-  <footer>
-    <p>
-      Annales dataset sample. The CSV slices above are selected monthly extracts
-      chosen to allow inspection and qualitative exploration of the underlying data.
-      Charts and metrics were generated from the full dataset.
-    </p>
-    <p class="copyright">Original news content and data belongs to their respective owners. No copyright infringement is intended.<br>&copy; <%= Time.now.year %> Tommaso Barbato. All rights reserved.</p>
-  </footer>
-
-</div>
-
-<!-- Lightbox overlay -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="" id="lightbox-img">
-</div>
-
-<script>
-(function () {
-  var lb = document.getElementById('lightbox');
-  var lbImg = document.getElementById('lightbox-img');
-
-  document.querySelectorAll('.lightbox-trigger').forEach(function (img) {
-    img.addEventListener('click', function () {
-      lbImg.src = this.src;
-      lbImg.alt = this.alt;
-      lb.classList.add('active');
-    });
-  });
-
-  lb.addEventListener('click', function () {
-    lb.classList.remove('active');
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') lb.classList.remove('active');
-  });
-})();
-</script>
-</body>
-</html>
+OUTPUT_FILE.write(html)
+puts "Built #{OUTPUT_FILE}"
