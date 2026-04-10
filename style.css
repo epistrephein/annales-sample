@@ -75,6 +75,16 @@ header p + p {
   margin-top: 1rem;
 }
 
+header p a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+header p a:hover {
+  color: var(--text);
+}
+
 /* ── Sections ── */
 
 section {
@@ -401,6 +411,25 @@ footer {
 
 footer p + p {
   margin-top: 0.5rem;
+}
+
+.github-link {
+  margin-top: 1.8rem;
+  text-align: center;
+}
+
+.github-link a {
+  display: inline-flex;
+  color: var(--text-light);
+  transition: color 0.15s;
+}
+
+.github-link a:hover {
+  color: var(--text);
+}
+
+.github-link svg {
+  fill: currentColor;
 }
 
 /* ── Responsive ── */
