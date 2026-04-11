@@ -16,8 +16,10 @@ METRICS_FILE  = ROOT_DIR.join("metrics/metrics.yml")
 TEMPLATE_FILE = ROOT_DIR.join("website/template.erb")
 OUTPUT_FILE   = ROOT_DIR.join("index.html")
 
-METRICS  = YAML.load_file(METRICS_FILE)
-RNG_SEED = 21275
+METRICS = YAML.load_file(METRICS_FILE)
+
+SAMPLE_SIZE = 10
+RNG_SEED = 918233
 
 MONTH_NAMES = %w[_ January February March April May June July
                  August September October November December].freeze
@@ -33,7 +35,7 @@ def escape_html(string)
 end
 
 # Read random seeded N data rows from a CSV file (returns [headers, rows])
-def read_csv_sample(path, count = 5, seed = RNG_SEED)
+def read_csv_sample(path, count = SAMPLE_SIZE, seed = RNG_SEED)
   rows = CSV.read(path, headers: true)
   rng = Random.new(seed)
 
